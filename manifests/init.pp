@@ -126,7 +126,9 @@ class libvirt (
     ensure => file,
     notify => Exec['create_libvirtd_conf'],
   }
-  create_resources("libvirt::libvirtd_config", $libvirtd_config)
+  if $libvirtd_config {
+    create_resources("libvirt::libvirtd_config", $libvirtd_config)
+  }
 
   # Some minor defaults. These may need to differ per OS in the future.
   libvirt::libvirtd_config { ["auth_unix_ro", "auth_unix_rw"]: value => "none" }
@@ -161,7 +163,9 @@ class libvirt (
     ensure => file,
     notify => Exec['create_qemu_conf'],
   }
-  create_resources("libvirt::qemu_config", $qemu_config)
+  if $qemu_config {
+    create_resources("libvirt::qemu_config", $qemu_config)
+  }
 
 }
 
