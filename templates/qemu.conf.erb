@@ -1,1 +1,1 @@
-<%= name %>=<% if value.kind_of?(Array) %>["<%= value.join("\",\"") %>"]<% elsif value.match(/^\d+$/) %><%=value%><% else %>"<%= value %>"<% end %><%= "\n" %>
+<%= @name %>=<% if @value.kind_of?(Array) %>["<%= @value.join("\",\"") %>"]<% elsif @value.match(/^\d+$/) %><%=@value%><% else %>"<%= @value %>"<% end %><%= "\n" %>
