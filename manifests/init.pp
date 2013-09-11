@@ -23,6 +23,8 @@
 #   *Optional* User that libvirtd runs as.
 # [group]
 #   *Optional* Group that libvirtd runs as.
+# [creategroup]
+#   *Optional* If the group is defined, generate the group here or not
 # [config_dir]
 #   *Optional* Path to libvirt configuration.
 # [libvirtd_config_file]
@@ -66,6 +68,7 @@ class libvirt (
   $service = $libvirt::params::libvirt_service,
   $user = $libvirt::params::libvirt_user,
   $group = $libvirt::params::libvirt_group,
+  $creategroup = false,
   $libvirtd_config = undef,
   $config_dir = $libvirt::params::libvirt_config_dir,
   $libvirtd_config_file = $libvirt::params::libvirtd_config_file,
@@ -90,11 +93,12 @@ class libvirt (
   #####################
   # Users and groups. #
   #####################
-
-  group { $group:
-    ensure  => present,
-    system  => true,
-    require => Package[$package],
+  if $creategroup {
+    group { $group:
+      ensure  => present,
+      system  => true,
+      require => Package[$package],
+    }
   }
 
   ########################
